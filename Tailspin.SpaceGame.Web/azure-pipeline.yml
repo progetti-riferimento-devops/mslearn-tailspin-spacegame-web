@@ -11,34 +11,34 @@ variables:
 
 steps:
 - task: UseDotNet@2
-  displayName: 'Use .NET Core SDK 3.1.100'
+  displayName: 'Utilizzo .NET Core SDK 3.1.100 (se tutto va bene...)'
   inputs:
     packageType: sdk
     version: 3.1.100
 
 - task: Npm@1
-  displayName: 'Run npm install'
+  displayName: 'Run npm install (Nuget)'
   inputs:
     verbose: false
 
 - script: './node_modules/.bin/node-sass Tailspin.SpaceGame.Web/wwwroot --output Tailspin.SpaceGame.Web/wwwroot'
-  displayName: 'Compile Sass assets'
+  displayName: 'Compilazione Sass'
 
 - task: gulp@1
-  displayName: 'Run gulp tasks'
+  displayName: 'Esecuzione dei task Gulp'
 
 - script: 'echo "$(Build.DefinitionName), $(Build.BuildId), $(Build.BuildNumber)" > buildinfo.txt'
-  displayName: 'Write build info'
+  displayName: 'Questa è la build:'
   workingDirectory: Tailspin.SpaceGame.Web/wwwroot
 
 - task: DotNetCoreCLI@2
-  displayName: 'Restore project dependencies'
+  displayName: 'Restore delle dipendenze di progetto'
   inputs:
     command: 'restore'
     projects: '**/*.csproj'
 
 - task: DotNetCoreCLI@2
-  displayName: 'Build the project - Release'
+  displayName: 'Compliazione!!! -> In modalità Release'
   inputs:
     command: 'build'
     arguments: '--no-restore --configuration Release'
